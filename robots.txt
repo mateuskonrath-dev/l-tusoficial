@@ -1,0 +1,26 @@
+# Lótus Calçados - Robots.txt
+# Last Updated: 2026-03-27
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /.env
+Disallow: /node_modules/
+Disallow: /*.json$
+Disallow: /sw.js
+
+# Specific crawlers
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://lotus-shoes-preview.vercel.app/sitemap.xml
+
+# Cache settings
+Cache-Control: public, max-age=3600

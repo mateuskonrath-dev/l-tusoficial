@@ -1,0 +1,331 @@
+/* ============================================
+   LÓTUS CALÇADOS — DESIGN TOKENS (CSS Variables)
+   Generated from tokens.json
+   Last Updated: March 26, 2026
+   ============================================ */
+
+:root {
+  /* ===================== COLOR TOKENS ===================== */
+
+  /* Brand Colors */
+  --color-brand-primary: #d4af37;
+  --color-brand-primary-light: #f5df9a;
+  --color-brand-secondary-dark: #0f3b28;
+  --color-brand-secondary-light: #1f5e42;
+
+  /* Neutral Colors */
+  --color-neutral-bg: #030d09;
+  --color-neutral-surface: #eaedea;
+  --color-neutral-white: #ffffff;
+  --color-neutral-text-primary: #d0d6d2; /* WCAG AA: 6.5:1 contrast */
+  --color-neutral-text-secondary: #a8b4ae;
+  --color-neutral-gray-dark: #242424;
+
+  /* Semantic Colors */
+  --color-semantic-success: #27ae60;
+  --color-semantic-error: #e74c3c;
+  --color-semantic-warning: #f39c12;
+
+  /* Aliases for convenience */
+  --color-gold: var(--color-brand-primary);
+  --color-gold-light: var(--color-brand-primary-light);
+  --color-green-dark: var(--color-brand-secondary-dark);
+  --color-green-core: var(--color-brand-secondary-light);
+  --color-gray: var(--color-neutral-text-primary);
+  --color-white: var(--color-neutral-white);
+  --color-bg: var(--color-neutral-bg);
+  --color-stone: var(--color-neutral-surface);
+
+  /* ===================== TYPOGRAPHY TOKENS ===================== */
+
+  /* Font Families */
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+
+  /* Font Sizes */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 28px;
+  --font-size-4xl: 32px;
+  --font-size-5xl: 48px;
+  --font-size-6xl: 64px;
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+
+  /* Line Heights */
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.8;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.5px;
+  --letter-spacing-normal: 0px;
+  --letter-spacing-wide: 1.5px;
+  --letter-spacing-extra-wide: 2px;
+
+  /* ===================== SPACING TOKENS ===================== */
+
+  --spacing-xs: 0.25rem;   /* 4px */
+  --spacing-sm: 0.5rem;    /* 8px */
+  --spacing-md: 1rem;      /* 16px */
+  --spacing-lg: 1.5rem;    /* 24px */
+  --spacing-xl: 2rem;      /* 32px */
+  --spacing-2xl: 2.5rem;   /* 40px */
+  --spacing-3xl: 3rem;     /* 48px */
+  --spacing-4xl: 4rem;     /* 64px */
+  --spacing-5xl: 5rem;     /* 80px */
+  --spacing-6xl: 6rem;     /* 96px */
+
+  /* ===================== BORDER RADIUS TOKENS ===================== */
+
+  --border-radius-none: 0px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-2xl: 20px;
+  --border-radius-full: 9999px;
+
+  /* ===================== SHADOW TOKENS ===================== */
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 15px 40px rgba(0, 0, 0, 0.25);
+  --shadow-2xl: 0 20px 50px rgba(0, 0, 0, 0.3);
+  --shadow-gold-sm: 0 4px 15px rgba(212, 175, 55, 0.3);
+  --shadow-gold-lg: 0 20px 50px rgba(212, 175, 55, 0.2);
+
+  /* Semantic shadows */
+  --shadow-success: 0 0 0 3px rgba(39, 174, 96, 0.1);
+  --shadow-error: 0 0 0 3px rgba(231, 76, 60, 0.1);
+
+  /* ===================== TRANSITION TOKENS ===================== */
+
+  --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ===================== OPACITY TOKENS ===================== */
+
+  --opacity-0: 0;
+  --opacity-10: 0.1;
+  --opacity-20: 0.2;
+  --opacity-50: 0.5;
+  --opacity-75: 0.75;
+  --opacity-90: 0.9;
+  --opacity-100: 1;
+
+  /* ===================== GLASS MORPHISM TOKENS ===================== */
+
+  --glass-bg-dark: rgba(6, 28, 19, 0.4);
+  --glass-bg-light: rgba(255, 255, 255, 0.7);
+  --glass-border-dark: rgba(212, 175, 55, 0.15);
+  --glass-border-light: rgba(212, 175, 55, 0.3);
+
+  /* ===================== COMPONENT-SPECIFIC TOKENS ===================== */
+
+  /* Button */
+  --button-primary-padding: 1rem 2.5rem;
+  --button-primary-font-size: 0.85rem;
+  --button-primary-font-weight: 500;
+  --button-primary-letter-spacing: 2px;
+  --button-primary-border-radius: 4px;
+
+  /* Card */
+  --card-padding: 2.5rem;
+  --card-border-radius: 16px;
+  --card-shadow: var(--shadow-lg);
+  --card-border: 1px solid rgba(212, 175, 55, 0.15);
+
+  /* Input */
+  --input-padding: 0.8rem 1rem;
+  --input-border-radius: 8px;
+  --input-font-size: 0.95rem;
+  --input-border: 1px solid #e0e6e3;
+  --input-bg: #f9fbf9;
+
+  /* Section */
+  --section-padding: 6rem 0;
+  --container-max-width: 1440px;
+  --container-padding: 0 5%;
+}
+
+/* ===================== DARK MODE SUPPORT ===================== */
+
+:root.dark-mode {
+  /* Dark Mode Colors */
+  --color-neutral-bg: #0a0e0c;
+  --color-neutral-surface: #1a2420;
+  --color-neutral-text-primary: #e0e6e3;
+  --color-neutral-text-secondary: #b8c4bf;
+  --color-neutral-white: #f5f7f6;
+
+  /* Adjustments for dark mode */
+  --glass-bg-dark: rgba(26, 36, 32, 0.6);
+  --glass-bg-light: rgba(26, 36, 32, 0.8);
+  --glass-border-light: rgba(212, 175, 55, 0.4);
+
+  /* Button styling in dark mode */
+  --input-bg: #141a18;
+  --input-border: 1px solid #3a4a42;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Auto-enable dark mode if system prefers it */
+  :root {
+    --color-neutral-bg: #0a0e0c;
+    --color-neutral-surface: #1a2420;
+    --color-neutral-text-primary: #e0e6e3;
+    --color-neutral-text-secondary: #b8c4bf;
+  }
+}
+
+/* ===================== ACCESSIBILITY OVERRIDES ===================== */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: all 0s;
+    --transition-smooth: all 0s;
+    --transition-slow: all 0s;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    /* Increase shadow for better visibility */
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 10px 35px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ===================== RESPONSIVE ADJUSTMENTS ===================== */
+
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 4rem 0;
+    --card-padding: 2rem;
+    --spacing-5xl: 4rem; /* Reduce large spacing on mobile */
+    --spacing-6xl: 5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-base: 14px; /* Reduce base font on small phones */
+    --section-padding: 3rem 0;
+    --container-padding: 0 4%;
+  }
+}
+
+/* ===================== UTILITY CLASSES ===================== */
+
+.text-primary {
+  color: var(--color-neutral-text-primary);
+}
+
+.text-secondary {
+  color: var(--color-neutral-text-secondary);
+}
+
+.text-white {
+  color: var(--color-white);
+}
+
+.text-success {
+  color: var(--color-semantic-success);
+}
+
+.text-error {
+  color: var(--color-semantic-error);
+}
+
+.text-warning {
+  color: var(--color-semantic-warning);
+}
+
+.bg-primary {
+  background-color: var(--color-brand-primary);
+}
+
+.bg-dark {
+  background-color: var(--color-neutral-bg);
+}
+
+.bg-light {
+  background-color: var(--color-neutral-surface);
+}
+
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.rounded-sm {
+  border-radius: var(--border-radius-sm);
+}
+
+.rounded-md {
+  border-radius: var(--border-radius-md);
+}
+
+.rounded-lg {
+  border-radius: var(--border-radius-lg);
+}
+
+.rounded-xl {
+  border-radius: var(--border-radius-xl);
+}
+
+.p-md {
+  padding: var(--spacing-md);
+}
+
+.p-lg {
+  padding: var(--spacing-lg);
+}
+
+.p-xl {
+  padding: var(--spacing-xl);
+}
+
+.m-md {
+  margin: var(--spacing-md);
+}
+
+.m-lg {
+  margin: var(--spacing-lg);
+}
+
+.gap-md {
+  gap: var(--spacing-md);
+}
+
+.gap-lg {
+  gap: var(--spacing-lg);
+}
+
+.transition-fast {
+  transition: var(--transition-fast);
+}
+
+.transition-smooth {
+  transition: var(--transition-smooth);
+}
