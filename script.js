@@ -14,50 +14,6 @@ if ('serviceWorker' in navigator) {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🪷 Lotus Script: Initializing...');
 
-    // --- DARK MODE TOGGLE ---
-    const darkModeToggle = () => {
-        const html = document.documentElement;
-        const isDarkMode = html.classList.contains('dark-mode');
-
-        if (isDarkMode) {
-            html.classList.remove('dark-mode');
-            localStorage.setItem('lotus-dark-mode', 'false');
-            console.log('🌙 Dark Mode OFF');
-        } else {
-            html.classList.add('dark-mode');
-            localStorage.setItem('lotus-dark-mode', 'true');
-            console.log('🌙 Dark Mode ON');
-        }
-    };
-
-    // Load dark mode preference from localStorage
-    const savedDarkMode = localStorage.getItem('lotus-dark-mode');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedDarkMode === 'true' || (savedDarkMode === null && prefersDark)) {
-        document.documentElement.classList.add('dark-mode');
-    }
-
-    // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addListener((e) => {
-        if (localStorage.getItem('lotus-dark-mode') === null) {
-            if (e.matches) {
-                document.documentElement.classList.add('dark-mode');
-            } else {
-                document.documentElement.classList.remove('dark-mode');
-            }
-        }
-    });
-
-    // Add dark mode toggle button to navbar (if needed)
-    window.toggleDarkMode = darkModeToggle;
-
-    // Dark mode button event listener
-    const darkModeBtn = document.getElementById('darkModeBtn');
-    if (darkModeBtn) {
-        darkModeBtn.addEventListener('click', darkModeToggle);
-    }
-
     // --- NAVBAR SCROLL EFFECT ---
     const navbar = document.querySelector('.navbar');
     const scrollThreshold = 50;
