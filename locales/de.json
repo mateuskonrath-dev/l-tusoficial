@@ -1,6 +1,6 @@
 {
     "nav-home": "Startseite",
-    "nav-global": "Global",
+    "nav-global": "Über uns",
     "nav-social": "Soziales",
     "nav-sust": "Nachhaltigkeit",
     "nav-contact": "Kontakt",
@@ -51,6 +51,11 @@
     "form-message": "Nachricht",
     "form-message-ph": "Erzählen Sie uns von Ihrem Projekt...",
     "form-btn": "Nachricht senden",
+    "form-success": "Nachricht versendet! Wir werden uns bald mit Ihnen in Verbindung setzen.",
+    "form-error": "Fehler beim Versenden. Bitte versuchen Sie es erneut.",
+    "form-invalid": "Bitte füllen Sie alle erforderlichen Felder korrekt aus.",
     "footer-desc": "Wo Umweltfreundlichkeit auf High-End-Mode trifft.",
-    "footer-rights": "&copy; 2026 Lótus Calçados. Alle Rechte vorbehalten. \"In Brasilien produziert, für die Welt präsentiert.\""
+    "footer-rights": "&copy; 2026 Lótus Calçados. Alle Rechte vorbehalten. \"In Brasilien produziert, für die Welt präsentiert.\"",
+    "meta-description": "Premium-Damenschuh-Hersteller und Private-Label-Partner. Über 400 Paar täglich für führende internationale Marken seit 1997.",
+    "meta-og-title": "Lótus Schuhe | Exzellenz & Nachhaltigkeit"
 }

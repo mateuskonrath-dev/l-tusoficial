@@ -1,33 +1,4 @@
-/* CSS Variables & Global Settings */
-:root {
-    /* Brand Colors */
-    --color-green-dark: #061c13;
-    --color-green-core: #0f3b28;
-    --color-green-light: #1f5e42;
-    --color-gold: #d4af37;
-    --color-gold-light: #f5df9a;
-
-    /* Neutrals */
-    --color-bg: #030d09;
-    --color-stone: #eaedea;
-    --color-white: #ffffff;
-    --color-gray: #d0d6d2; /* ✅ WCAG AA: Contraste 6.5:1 (era 4.5:1) */
-    --color-dark-gray: #242424;
-
-    /* Gradients and Filters */
-    --glass-bg-dark: rgba(6, 28, 19, 0.4);
-    --glass-bg-light: rgba(255, 255, 255, 0.7);
-    --glass-border-dark: rgba(212, 175, 55, 0.15);
-    --glass-border-light: rgba(212, 175, 55, 0.3);
-
-    /* Typography */
-    --font-sans: 'Inter', sans-serif;
-    --font-serif: 'Playfair Display', serif;
-
-    /* Transitions */
-    --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    --transition-fast: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
+/* CSS Variables & Global Settings are imported from tokens.css */
 
 * {
     margin: 0;
@@ -128,6 +99,13 @@ ul {
 .btn-primary:hover {
     transform: translateY(-3px) scale(1.05);
     box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+}
+
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-send:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 4px;
 }
 
 /* ✅ NOVO: Button Secondary para CTAs alternativas */
@@ -319,6 +297,12 @@ header {
     width: 100%;
 }
 
+.nav-links li a:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
 /* Language Dropdown */
 .lang-dropdown {
     position: relative;
@@ -404,6 +388,12 @@ header {
 .hamburger {
     display: none;
     cursor: pointer;
+}
+
+.hamburger:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 4px;
+    border-radius: 4px;
 }
 
 .hamburger .line {
@@ -1494,5 +1484,51 @@ body {
 
     .footer-qr {
         order: 3;
+    }
+}
+
+/* ✅ Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* ✅ Toast Notifications */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius-md, 8px);
+    color: white;
+    font-weight: 500;
+    z-index: 9999;
+    animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.toast-success {
+    background: #10b981;
+}
+
+.toast-error {
+    background: #ef4444;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
     }
 }

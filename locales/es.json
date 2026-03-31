@@ -1,6 +1,6 @@
 {
     "nav-home": "Inicio",
-    "nav-global": "Global",
+    "nav-global": "Sobre",
     "nav-social": "Social",
     "nav-sust": "Sostenibilidad",
     "nav-contact": "Contacto",
@@ -51,6 +51,11 @@
     "form-message": "Message",
     "form-message-ph": "Cuéntenos sobre su proyecto...",
     "form-btn": "Enviar mensaje",
+    "form-success": "¡Mensaje enviado! Nos pondremos en contacto pronto.",
+    "form-error": "Error al enviar. Por favor, intenta de nuevo.",
+    "form-invalid": "Por favor, completa todos los campos obligatorios correctamente.",
     "footer-desc": "Donde lo ecológicamente correcto se encuentra con la moda de alta gama.",
-    "footer-rights": "&copy; 2026 Lótus Calçados. Todos los derechos reservados. \"Producido en Brasil, desfilando por el mundo.\""
+    "footer-rights": "&copy; 2026 Lótus Calçados. Todos los derechos reservados. \"Producido en Brasil, desfilando por el mundo.\"",
+    "meta-description": "Fabricante premium de calzado femenino y socio de marca privada. Más de 400 pares diarios para las principales marcas internacionales desde 1997.",
+    "meta-og-title": "Lótus Zapatos | Excelencia & Sustentabilidad"
 }

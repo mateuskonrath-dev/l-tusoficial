@@ -1,6 +1,6 @@
 {
     "nav-home": "Home",
-    "nav-global": "Global",
+    "nav-global": "Sobre",
     "nav-social": "Social",
     "nav-sust": "Sustentabilidade",
     "nav-contact": "Contato",
@@ -51,6 +51,11 @@
     "form-message": "Mensagem",
     "form-message-ph": "Conte-nos sobre o seu projeto...",
     "form-btn": "Enviar Mensagem",
+    "form-success": "Mensagem enviada! Entraremos em contato em breve.",
+    "form-error": "Erro ao enviar. Por favor, tente novamente.",
+    "form-invalid": "Por favor, preencha todos os campos obrigatórios.",
     "footer-desc": "Onde o ecologicamente correto encontra a moda de alto padrão.",
-    "footer-rights": "&copy; 2026 Lótus Calçados. Todos os direitos reservados. \"Produzindo no Brasil, desfilando pelo mundo.\""
+    "footer-rights": "&copy; 2026 Lótus Calçados. Todos os direitos reservados. \"Produzindo no Brasil, desfilando pelo mundo.\"",
+    "meta-description": "Fabricante premium de calçados femininos private label. Mais de 400 pares por dia para as maiores marcas internacionais desde 1997.",
+    "meta-og-title": "Lótus Calçados | Excelência & Sustentabilidade"
 }

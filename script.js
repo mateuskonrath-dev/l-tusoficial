@@ -2,30 +2,39 @@
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('✅ Service Worker: Registered successfully');
-            })
             .catch(error => {
-                console.log('⚠️ Service Worker: Registration failed -', error);
+                if (window.location.hostname === 'localhost') {
+                    console.error('Service Worker registration failed:', error);
+                }
             });
     });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🪷 Lotus Script: Initializing...');
+    // Throttle utility function
+    function throttle(fn, wait) {
+        let last = 0;
+        return (...args) => {
+            const now = Date.now();
+            if (now - last >= wait) {
+                last = now;
+                fn(...args);
+            }
+        };
+    }
 
     // --- NAVBAR SCROLL EFFECT ---
     const navbar = document.querySelector('.navbar');
     const scrollThreshold = 50;
 
     if (navbar) {
-        window.addEventListener('scroll', () => {
+        window.addEventListener('scroll', throttle(() => {
             if (window.scrollY > scrollThreshold) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
-        });
+        }, 100));
     }
 
     // --- MOBILE MENU TOGGLE ---
@@ -37,6 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
         hamburger.addEventListener('click', () => {
             // Toggle Nav
             navLinks.classList.toggle('nav-active');
+
+            // Update aria-expanded
+            const isExpanded = navLinks.classList.contains('nav-active');
+            hamburger.setAttribute('aria-expanded', isExpanded);
 
             // Animate Links
             navLinksItems.forEach((link, index) => {
@@ -64,6 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- TRANSLATION SYSTEM (REFACTORED) ---
+    // Whitelist of keys that are allowed to contain HTML
+    const HTML_ALLOWED_KEYS = ['hero-title', 'about-p1', 'about-p2', 'footer-rights'];
+
     let translations = {};
     const defaultLang = 'pt';
     const savedLang = localStorage.getItem('lotus-lang') || defaultLang;
@@ -75,7 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
             translations = await response.json();
             return translations;
         } catch (error) {
-            console.error('Translation error:', error);
+            if (window.location.hostname === 'localhost') {
+                console.error('Translation error:', error);
+            }
             if (lang !== 'pt') return loadTranslations('pt');
             return {};
         }
@@ -85,14 +103,18 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             await loadTranslations(lang);
 
-            // Translate innerHTML
+            // Translate innerHTML (with XSS protection)
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[key]) {
                     if (el.tagName === 'TITLE') {
                         document.title = translations[key];
-                    } else {
+                    } else if (HTML_ALLOWED_KEYS.includes(key)) {
+                        // Only use innerHTML for whitelisted keys that contain legitimate HTML
                         el.innerHTML = translations[key];
+                    } else {
+                        // Use textContent for all other keys (prevents XSS)
+                        el.textContent = translations[key];
                     }
                 }
             });
@@ -113,21 +135,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
+            // Update meta description dynamically
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc && translations['meta-description']) {
+                metaDesc.setAttribute('content', translations['meta-description']);
+            }
+
+            // Update og:title dynamically
+            const ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle && translations['meta-og-title']) {
+                ogTitle.setAttribute('content', translations['meta-og-title']);
+            }
+
             const currentLangLabel = document.getElementById('currentLang');
             if (currentLangLabel) currentLangLabel.textContent = lang.toUpperCase();
 
             localStorage.setItem('lotus-lang', lang);
             document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
-
-            console.log(`Language changed to: ${lang}`);
         } catch (e) {
-            console.error('Change language error:', e);
+            if (window.location.hostname === 'localhost') {
+                console.error('Change language error:', e);
+            }
         }
     };
 
     // Initialize Language
     changeLanguage(savedLang).then(() => {
-        console.log('Lotus Script: Localization complete.');
 
         // --- REVEAL ON SCROLL (Only initialize after content is loaded/translated) ---
         const revealElements = document.querySelectorAll('.reveal');
@@ -161,12 +194,18 @@ document.addEventListener('DOMContentLoaded', () => {
         langDropBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             langDropdown.classList.toggle('open');
+
+            // Update aria-expanded
+            const isExpanded = langDropdown.classList.contains('open');
+            langDropBtn.setAttribute('aria-expanded', isExpanded);
         });
 
         // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
             if (!langDropdown.contains(e.target)) {
                 langDropdown.classList.remove('open');
+                // Update aria-expanded
+                langDropBtn.setAttribute('aria-expanded', 'false');
             }
         });
     }
@@ -180,6 +219,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (langDropdown) langDropdown.classList.remove('open');
         });
     });
+
+    // --- NOTIFICATION SYSTEM ---
+    function showNotification(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.setAttribute('role', 'alert');
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => toast.remove(), 4000);
+    }
 
     // --- CONTACT FORM HANDLER (✅ MELHORADO) ---
     const contactForm = document.querySelector('.contact-form');
@@ -205,10 +255,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!isValid) {
-                const lang = document.documentElement.lang;
-                alert(lang.startsWith('pt')
-                    ? 'Por favor, preencha todos os campos obrigatórios corretamente.'
-                    : 'Please fill in all required fields correctly.');
+                showNotification(
+                    translations['form-invalid'] || 'Por favor, preencha todos os campos obrigatórios.',
+                    'error'
+                );
                 return;
             }
 
@@ -219,10 +269,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Simular envio
             setTimeout(() => {
-                const lang = document.documentElement.lang;
-                alert(lang.startsWith('pt')
-                    ? '✓ Mensagem enviada com sucesso! Responderemos em breve.'
-                    : '✓ Message sent successfully! We will respond soon.');
+                showNotification(
+                    translations['form-success'] || 'Mensagem enviada com sucesso!',
+                    'success'
+                );
                 contactForm.reset();
                 btn.disabled = false;
                 btn.innerHTML = originalText;
@@ -252,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollSections = document.querySelectorAll('header, section');
     const navItems = document.querySelectorAll('.nav-links a');
 
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', throttle(() => {
         let current = '';
         scrollSections.forEach(section => {
             const sectionTop = section.offsetTop;
@@ -269,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.classList.add('active');
             }
         });
-    });
+    }, 150));
 
     // Initial trigger
     window.dispatchEvent(new Event('scroll'));

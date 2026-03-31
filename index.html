@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www.google.com;">
 
     <title>Lótus Calçados - Fabricante Premium de Calçados Femininos</title>
 
@@ -31,6 +32,15 @@
     <!-- ✅ Canonical URL -->
     <link rel="canonical" href="https://lotus-shoes-preview.vercel.app/">
 
+    <!-- ✅ Hreflang Tags for Multilingual SEO -->
+    <link rel="alternate" hreflang="pt-BR" href="https://lotus-shoes-preview.vercel.app/?lang=pt">
+    <link rel="alternate" hreflang="en" href="https://lotus-shoes-preview.vercel.app/?lang=en">
+    <link rel="alternate" hreflang="de" href="https://lotus-shoes-preview.vercel.app/?lang=de">
+    <link rel="alternate" hreflang="fr" href="https://lotus-shoes-preview.vercel.app/?lang=fr">
+    <link rel="alternate" hreflang="es" href="https://lotus-shoes-preview.vercel.app/?lang=es">
+    <link rel="alternate" hreflang="it" href="https://lotus-shoes-preview.vercel.app/?lang=it">
+    <link rel="alternate" hreflang="x-default" href="https://lotus-shoes-preview.vercel.app/">
+
     <!-- Google Fonts: Inter and Playfair Display -->
 
     <!-- ✅ Open Graph (Social Media) -->
@@ -38,7 +48,7 @@
     <meta property="og:title" content="Lótus Calçados - Fabricante Premium de Calçados Femininos">
     <meta property="og:description" content="Parceiros premium de fabricação private label para as maiores marcas internacionais. Excelência, sustentabilidade e responsabilidade social.">
     <meta property="og:url" content="https://lotus-shoes-preview.vercel.app/">
-    <meta property="og:image" content="assets/social-preview.png">
+    <meta property="og:image" content="assets/social-preview.webp">
     <meta property="og:site_name" content="Lótus Calçados">
     <meta property="og:locale" content="pt_BR">
 
@@ -46,17 +56,18 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Lótus Calçados - Fabricante Premium">
     <meta name="twitter:description" content="Fabricante de calçados femininos de luxo sustentáveis com operações globais.">
-    <meta name="twitter:image" content="assets/social-preview.png">
+    <meta name="twitter:image" content="assets/social-preview.webp">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Lótus Shoes">
     <meta name="twitter:description"
         content="Your Private Label Partner for Premium Women's Footwear. 27+ years crafting high-end shoes for international brands.">
-    <meta name="twitter:image" content="assets/social-preview.png">
+    <meta name="twitter:image" content="assets/social-preview.webp">
     <!-- Google Fonts: Inter and Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
         rel="stylesheet">
@@ -69,32 +80,31 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": "LocalBusiness",
       "name": "Lótus Calçados",
       "alternateName": "Lotus Shoes",
+      "description": "Fabricante premium de calçados femininos private label com excelência em design, qualidade e sustentabilidade.",
       "url": "https://lotus-shoes-preview.vercel.app/",
-      "logo": "assets/logo.jpg",
-      "description": "Fabricante de calçados femininos de luxo sustentáveis. Parceiros premium de private label.",
-      "sameAs": [
-        "https://www.facebook.com/lotuscalcados",
-        "https://www.instagram.com/lotuscalcados"
-      ],
+      "logo": "assets/logo.webp",
+      "image": "assets/social-preview.webp",
+      "telephone": "+55-51-XXXX-XXXX",
+      "email": "contact@lotuscalcados.com.br",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Sapiranga",
+        "streetAddress": "Av. Sen. Alberto Pasqualini, 90",
         "addressLocality": "Sapiranga",
         "addressRegion": "RS",
         "postalCode": "93800-000",
         "addressCountry": "BR"
       },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+55-11-98765-4321",
-        "contactType": "Customer Service"
-      },
+      "sameAs": [
+        "https://www.facebook.com/lotuscalcados",
+        "https://www.instagram.com/lotuscalcados"
+      ],
       "foundingDate": "1998",
-      "areaServed": ["BR", "US", "EU", "DE", "FR", "ES", "IT"],
-      "numberOfEmployees": 130
+      "areaServed": ["BR", "US", "DE", "FR", "ES", "IT"],
+      "numberOfEmployees": 130,
+      "priceRange": "$$"
     }
     </script>
 
@@ -136,40 +146,43 @@
             <li><a href="#contact" data-i18n="nav-contact">Contato</a></li>
         </ul>
         <div class="lang-dropdown">
-            <button class="lang-dropbtn" id="langDropBtn">
+            <button class="lang-dropbtn" id="langDropBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Selecionar idioma">
                 <svg class="globe-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="2" y1="12" x2="22" y2="12"></line>
                     <path
                         d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
                     </path>
                 </svg>
-                <span id="currentLang">EN</span>
+                <span id="currentLang">PT</span>
                 <svg class="chevron-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                     <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
             </button>
-            <div class="lang-dropdown-content" id="langOptions">
-                <a href="#" data-lang="en">English</a>
-                <a href="#" data-lang="pt">Português</a>
-                <a href="#" data-lang="de">Deutsch</a>
-                <a href="#" data-lang="fr">Français</a>
-                <a href="#" data-lang="es">Español</a>
-                <a href="#" data-lang="it">Italiano</a>
+            <div class="lang-dropdown-content" id="langOptions" role="listbox" aria-label="Idiomas disponíveis">
+                <a href="#" data-lang="en" role="option" aria-selected="false">English</a>
+                <a href="#" data-lang="pt" role="option" aria-selected="true">Português</a>
+                <a href="#" data-lang="de" role="option" aria-selected="false">Deutsch</a>
+                <a href="#" data-lang="fr" role="option" aria-selected="false">Français</a>
+                <a href="#" data-lang="es" role="option" aria-selected="false">Español</a>
+                <a href="#" data-lang="it" role="option" aria-selected="false">Italiano</a>
             </div>
         </div>
-        <div class="hamburger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </div>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="navLinks">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </button>
     </nav>
 
     <header id="home" class="hero section-padding">
         <div class="hero-bg">
-            <img src="./assets/hero_building_clean.png" alt="Lótus Shoes HQ">
+            <picture>
+                <source srcset="./assets/hero_building_clean.webp" type="image/webp">
+                <img src="./assets/hero_building_clean.png" alt="Lótus Shoes HQ" loading="eager" fetchpriority="high">
+            </picture>
             <div class="overlay"></div>
         </div>
         <div class="container hero-container relative z-index-1">
@@ -182,6 +195,7 @@
         </div>
     </header>
 
+    <main id="main-content">
     <section id="about" class="about section-padding bg-dark">
         <div class="container">
             <div class="section-title reveal">
@@ -215,7 +229,10 @@
                     </div>
                 </div>
                 <div class="about-photo reveal">
-                    <img src="assets/team.png" alt="Equipe Lótus Calçados reunida na fábrica">
+                    <picture>
+                        <source srcset="assets/team.webp" type="image/webp">
+                        <img src="assets/team.png" alt="Equipe Lótus Calçados reunida na fábrica" loading="lazy">
+                    </picture>
                 </div>
             </div>
         </div>
@@ -231,7 +248,7 @@
                 <div class="card glass-card-light reveal flex-row">
                     <div class="card-icon gold-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5">
+                            stroke-width="1.5" aria-hidden="true" focusable="false">
                             <path
                                 d="M12 11c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z" />
                         </svg>
@@ -247,7 +264,7 @@
                 <div class="card glass-card-light reveal flex-row">
                     <div class="card-icon gold-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5">
+                            stroke-width="1.5" aria-hidden="true" focusable="false">
                             <path
                                 d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                         </svg>
@@ -279,7 +296,7 @@
                 <div class="sus-card glass-dark reveal delay-1">
                     <div class="sus-icon">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5">
+                            stroke-width="1.5" aria-hidden="true" focusable="false">
                             <circle cx="12" cy="12" r="5" />
                             <path
                                 d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
@@ -293,7 +310,7 @@
                 <div class="sus-card glass-dark reveal delay-2">
                     <div class="sus-icon">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5">
+                            stroke-width="1.5" aria-hidden="true" focusable="false">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
                     </div>
@@ -305,7 +322,7 @@
                 <div class="sus-card glass-dark reveal delay-3">
                     <div class="sus-icon">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5">
+                            stroke-width="1.5" aria-hidden="true" focusable="false">
                             <circle cx="12" cy="12" r="3" />
                             <path
                                 d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
@@ -319,7 +336,10 @@
             </div>
 
             <div class="sus-hero reveal">
-                <img src="assets/solar.png" alt="Vista aérea da fábrica com painéis solares" loading="lazy" decoding="async">
+                <picture>
+                    <source srcset="assets/solar.webp" type="image/webp">
+                    <img src="assets/solar.png" alt="Vista aérea da fábrica com painéis solares" loading="lazy" decoding="async">
+                </picture>
             </div>
         </div>
     </section>
@@ -345,7 +365,8 @@
                             <div class="form-group">
                                 <label for="name" data-i18n="form-name">Name</label>
                                 <input type="text" id="name" placeholder="Your full name"
-                                    data-i18n-placeholder="form-name-ph" required>
+                                    data-i18n-placeholder="form-name-ph" required aria-required="true" aria-describedby="name-error">
+                                <span id="name-error" class="field-error" role="alert" aria-live="polite"></span>
                             </div>
                             <div class="form-group">
                                 <label for="company" data-i18n="form-company">Company</label>
@@ -357,23 +378,31 @@
                             <div class="form-group">
                                 <label for="email" data-i18n="form-email">Email</label>
                                 <input type="email" id="email" placeholder="your@email.com"
-                                    data-i18n-placeholder="form-email-ph" required>
+                                    data-i18n-placeholder="form-email-ph" required aria-required="true" aria-describedby="email-error">
+                                <span id="email-error" class="field-error" role="alert" aria-live="polite"></span>
                             </div>
                             <div class="form-group">
                                 <label for="country" data-i18n="form-country">Country</label>
-                                <input type="text" id="country" placeholder="e.g. Brazil, USA, Germany..."
-                                    data-i18n-placeholder="form-country-ph">
+                                <select id="country" required aria-required="true" aria-describedby="country-error">
+                                    <option value="" data-i18n="form-country-ph" disabled selected>Select your country</option>
+                                    <option value="BR" data-i18n="country-br">Brasil</option>
+                                    <option value="US" data-i18n="country-us">United States</option>
+                                    <option value="EU" data-i18n="country-eu">Europa</option>
+                                    <option value="other" data-i18n="country-other">Other</option>
+                                </select>
+                                <span id="country-error" class="field-error" role="alert" aria-live="polite"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="message" data-i18n="form-message">Message</label>
                             <textarea id="message" rows="5" placeholder="Tell us about your project..."
-                                data-i18n-placeholder="form-message-ph"></textarea>
+                                data-i18n-placeholder="form-message-ph" aria-describedby="message-error"></textarea>
+                            <span id="message-error" class="field-error" role="alert" aria-live="polite"></span>
                         </div>
                         <button type="submit" class="btn-send">
                             <span data-i18n="form-btn">Send Message</span>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                                 <line x1="22" y1="2" x2="11" y2="13"></line>
                                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                             </svg>
@@ -391,7 +420,7 @@
                         <div class="info-item">
                             <div class="info-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
@@ -406,7 +435,7 @@
                         <div class="info-item">
                             <div class="info-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                                     <path
                                         d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
                                     </path>
@@ -422,7 +451,7 @@
                         <div class="info-item">
                             <div class="info-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                                     <path
                                         d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
                                     </path>
@@ -446,6 +475,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <footer>
         <div class="container footer-content flex-row">
@@ -455,7 +485,10 @@
             </div>
             <div class="footer-qr">
                 <a href="https://www.instagram.com/lotus_shoes25" target="_blank" rel="noopener noreferrer">
-                    <img src="assets/qr.png" alt="Instagram @lotus_shoes25">
+                    <picture>
+                        <source srcset="assets/qr.webp" type="image/webp">
+                        <img src="assets/qr.png" alt="Instagram @lotus_shoes25" loading="lazy">
+                    </picture>
                 </a>
             </div>
             <div class="footer-contact">
