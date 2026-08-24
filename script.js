@@ -323,4 +323,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial trigger
     window.dispatchEvent(new Event('scroll'));
+
+    // ✅ Force Social Responsibility Section Colors (CSS Fallback)
+    const cardHeadings = document.querySelectorAll('.card-text h3');
+    const cardParagraphs = document.querySelectorAll('.card-text p');
+
+    cardHeadings.forEach(el => {
+        el.style.color = '#ffffff';
+        el.style.fontWeight = '600';
+        el.style.letterSpacing = '0.5px';
+    });
+
+    cardParagraphs.forEach(el => {
+        el.style.color = '#f5f5f5';
+        el.style.opacity = '0.98';
+    });
 });
