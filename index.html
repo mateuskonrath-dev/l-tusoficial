@@ -514,6 +514,186 @@
         </div>
     </footer>
 
+    <!-- ✅ Contact Form Handler -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.querySelector('.contact-form');
+        if (!contactForm) return;
+
+        // Elementos de erro
+        const errorElements = {
+          name: document.getElementById('name-error'),
+          email: document.getElementById('email-error'),
+          country: document.getElementById('country-error'),
+          message: document.getElementById('message-error')
+        };
+
+        // Limpar erros quando o usuário começa a digitar
+        ['name', 'email', 'country', 'message'].forEach(fieldId => {
+          const field = document.getElementById(fieldId);
+          if (field && errorElements[fieldId]) {
+            field.addEventListener('focus', () => {
+              errorElements[fieldId].textContent = '';
+              field.classList.remove('error');
+            });
+          }
+        });
+
+        // Submeter formulário
+        contactForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+
+          // Limpar erros anteriores
+          Object.values(errorElements).forEach(el => el.textContent = '');
+
+          // Coletar dados
+          const formData = {
+            name: document.getElementById('name').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            company: document.getElementById('company').value.trim(),
+            country: document.getElementById('country').value,
+            message: document.getElementById('message').value.trim()
+          };
+
+          // Validação
+          const errors = {};
+          if (!formData.name) errors.name = 'Nome é obrigatório';
+          if (!formData.email) errors.email = 'Email é obrigatório';
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            errors.email = 'Email inválido';
+          }
+          if (!formData.country) errors.country = 'País é obrigatório';
+          if (!formData.message) errors.message = 'Mensagem é obrigatória';
+
+          // Mostrar erros
+          if (Object.keys(errors).length > 0) {
+            Object.entries(errors).forEach(([field, message]) => {
+              if (errorElements[field]) {
+                errorElements[field].textContent = message;
+                document.getElementById(field).classList.add('error');
+              }
+            });
+            return;
+          }
+
+          // Mostrar loading
+          const submitBtn = contactForm.querySelector('.btn-send');
+          const originalText = submitBtn.querySelector('span').textContent;
+          submitBtn.disabled = true;
+          submitBtn.style.opacity = '0.6';
+          submitBtn.querySelector('span').textContent = '⏳ Enviando...';
+
+          try {
+            const response = await fetch('/api/contact', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+              // Sucesso! Mostrar mensagem
+              const successMsg = document.createElement('div');
+              successMsg.className = 'success-message';
+              successMsg.style.cssText = `
+                padding: 15px 20px;
+                background-color: #d4edda;
+                border: 1px solid #c3e6cb;
+                border-radius: 4px;
+                color: #155724;
+                margin-bottom: 20px;
+                animation: slideIn 0.3s ease-in-out;
+              `;
+              successMsg.innerHTML = '✅ <strong>Obrigado!</strong> Sua mensagem foi enviada com sucesso. Retornaremos em breve!';
+
+              const container = contactForm.parentElement;
+              container.insertBefore(successMsg, contactForm);
+
+              // Limpar formulário
+              contactForm.reset();
+
+              // Remover mensagem após 5 segundos
+              setTimeout(() => {
+                successMsg.style.animation = 'slideOut 0.3s ease-in-out';
+                setTimeout(() => successMsg.remove(), 300);
+              }, 5000);
+            } else {
+              throw new Error(result.error || 'Erro ao enviar mensagem');
+            }
+          } catch (error) {
+            console.error('Erro:', error);
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'error-message';
+            errorMsg.style.cssText = `
+              padding: 15px 20px;
+              background-color: #f8d7da;
+              border: 1px solid #f5c6cb;
+              border-radius: 4px;
+              color: #721c24;
+              margin-bottom: 20px;
+              animation: slideIn 0.3s ease-in-out;
+            `;
+            errorMsg.innerHTML = '❌ <strong>Erro!</strong> ' + (error.message || 'Não conseguimos enviar sua mensagem. Tente novamente.');
+
+            const container = contactForm.parentElement;
+            container.insertBefore(errorMsg, contactForm);
+
+            setTimeout(() => {
+              errorMsg.style.animation = 'slideOut 0.3s ease-in-out';
+              setTimeout(() => errorMsg.remove(), 300);
+            }, 5000);
+          } finally {
+            // Restaurar botão
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = '1';
+            submitBtn.querySelector('span').textContent = originalText;
+          }
+        });
+      });
+    </script>
+
+    <style>
+      .field-error {
+        display: block;
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 5px;
+        min-height: 16px;
+      }
+
+      .form-group input.error,
+      .form-group select.error,
+      .form-group textarea.error {
+        border-color: #dc3545 !important;
+        background-color: #fff5f5;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideOut {
+        from {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+      }
+    </style>
+
     <script src="script.js"></script>
 </body>
 
