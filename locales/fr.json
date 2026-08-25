@@ -48,6 +48,7 @@
     "country-us": "États-Unis",
     "country-eu": "Europe",
     "country-other": "Autre",
+    "form-country-custom": "Entrez votre pays",
     "form-message": "Message",
     "form-message-ph": "Parlez-nous de votre projet...",
     "form-btn": "Envoyer le message",
