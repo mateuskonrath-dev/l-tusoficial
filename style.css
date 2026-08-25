@@ -470,6 +470,11 @@ section:nth-of-type(5) { animation-delay: 0.5s; }
     color: var(--color-green-dark);
 }
 
+.social .section-title.dark-text h2 {
+    color: #ffe6a3 !important;
+    font-weight: 700;
+}
+
 .section-title.dark-text .subtitle {
     color: var(--color-green-core);
 }
