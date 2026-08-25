@@ -403,6 +403,11 @@
                                 </select>
                                 <span id="country-error" class="field-error" role="alert" aria-live="polite"></span>
                             </div>
+                            <div class="form-group" id="country-custom-group" style="display: none;">
+                                <label for="country-custom">Digite seu país:</label>
+                                <input type="text" id="country-custom" placeholder="Ex: Portugal, Argentina, Canadá..." aria-describedby="country-custom-error">
+                                <span id="country-custom-error" class="field-error" role="alert" aria-live="polite"></span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="message" data-i18n="form-message">Message</label>
@@ -525,15 +530,35 @@
           name: document.getElementById('name-error'),
           email: document.getElementById('email-error'),
           country: document.getElementById('country-error'),
-          message: document.getElementById('message-error')
+          message: document.getElementById('message-error'),
+          country_custom: document.getElementById('country-custom-error')
         };
 
+        // Controlar exibição do campo de país customizado
+        const countrySelect = document.getElementById('country');
+        const countryCustomGroup = document.getElementById('country-custom-group');
+        const countryCustomInput = document.getElementById('country-custom');
+
+        countrySelect.addEventListener('change', function() {
+          if (this.value === 'other') {
+            countryCustomGroup.style.display = 'block';
+            countryCustomInput.focus();
+            countryCustomInput.setAttribute('required', 'true');
+          } else {
+            countryCustomGroup.style.display = 'none';
+            countryCustomInput.removeAttribute('required');
+            countryCustomInput.value = '';
+            errorElements.country_custom.textContent = '';
+          }
+        });
+
         // Limpar erros quando o usuário começa a digitar
-        ['name', 'email', 'country', 'message'].forEach(fieldId => {
+        ['name', 'email', 'country', 'message', 'country-custom'].forEach(fieldId => {
           const field = document.getElementById(fieldId);
-          if (field && errorElements[fieldId]) {
+          const errKey = fieldId === 'country-custom' ? 'country_custom' : fieldId;
+          if (field && errorElements[errKey]) {
             field.addEventListener('focus', () => {
-              errorElements[fieldId].textContent = '';
+              errorElements[errKey].textContent = '';
               field.classList.remove('error');
             });
           }
@@ -547,11 +572,18 @@
           Object.values(errorElements).forEach(el => el.textContent = '');
 
           // Coletar dados
+          let country = document.getElementById('country').value;
+
+          // Se for "other", usar o país customizado
+          if (country === 'other') {
+            country = document.getElementById('country-custom').value.trim();
+          }
+
           const formData = {
             name: document.getElementById('name').value.trim(),
             email: document.getElementById('email').value.trim(),
             company: document.getElementById('company').value.trim(),
-            country: document.getElementById('country').value,
+            country: country,
             message: document.getElementById('message').value.trim()
           };
 
@@ -562,7 +594,13 @@
           if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
             errors.email = 'Email inválido';
           }
-          if (!formData.country) errors.country = 'País é obrigatório';
+          if (!formData.country) {
+            if (document.getElementById('country').value === 'other') {
+              errors.country_custom = 'Digite o nome do país';
+            } else {
+              errors.country = 'País é obrigatório';
+            }
+          }
           if (!formData.message) errors.message = 'Mensagem é obrigatória';
 
           // Mostrar erros
@@ -570,7 +608,10 @@
             Object.entries(errors).forEach(([field, message]) => {
               if (errorElements[field]) {
                 errorElements[field].textContent = message;
-                document.getElementById(field).classList.add('error');
+                const inputElement = document.getElementById(field);
+                if (inputElement) {
+                  inputElement.classList.add('error');
+                }
               }
             });
             return;
