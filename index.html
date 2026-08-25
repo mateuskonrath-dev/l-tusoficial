@@ -404,7 +404,7 @@
                                 <span id="country-error" class="field-error" role="alert" aria-live="polite"></span>
                             </div>
                         </div>
-                        <div class="form-group" id="country-custom-group" style="display: none !important;">
+                        <div class="form-group" id="country-custom-group" style="display: none;">
                             <label for="country-custom" data-i18n="form-country-custom">Enter your country</label>
                             <input type="text" id="country-custom" placeholder="Ex: Portugal, Argentina, Canadá..." aria-describedby="country-custom-error">
                             <span id="country-custom-error" class="field-error" role="alert" aria-live="polite"></span>
@@ -539,18 +539,25 @@
         const countryCustomGroup = document.getElementById('country-custom-group');
         const countryCustomInput = document.getElementById('country-custom');
 
-        countrySelect.addEventListener('change', function() {
-          if (this.value === 'other') {
+        // Função para atualizar visibilidade
+        const updateCountryFieldVisibility = function() {
+          if (countrySelect.value === 'other') {
             countryCustomGroup.style.display = 'block';
-            countryCustomInput.focus();
             countryCustomInput.setAttribute('required', 'true');
+            countryCustomInput.focus();
           } else {
             countryCustomGroup.style.display = 'none';
             countryCustomInput.removeAttribute('required');
             countryCustomInput.value = '';
             errorElements.country_custom.textContent = '';
           }
-        });
+        };
+
+        // Evento de mudança
+        countrySelect.addEventListener('change', updateCountryFieldVisibility);
+
+        // Inicializar estado correto ao carregar
+        updateCountryFieldVisibility();
 
         // Limpar erros quando o usuário começa a digitar
         ['name', 'email', 'country', 'message', 'country-custom'].forEach(fieldId => {
