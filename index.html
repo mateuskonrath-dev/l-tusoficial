@@ -13,6 +13,26 @@
 
     <title>🪷 Lótus Calçados - ATUALIZADO 2026-08-25 - Cores Sociais BRANCO #ffffff</title>
 
+    <!-- ✅ Cache Buster Script - Forces Fresh Load -->
+    <script>
+      const CURRENT_VERSION = '20260826-v2';
+      const VERSION_KEY = 'lotus-version';
+      const STORED_VERSION = localStorage.getItem(VERSION_KEY);
+
+      // Se a versão mudou ou não existe, limpa cache e recarrega
+      if (STORED_VERSION !== CURRENT_VERSION) {
+        localStorage.setItem(VERSION_KEY, CURRENT_VERSION);
+        // Limpa cache do navegador
+        if (navigator.serviceWorker) {
+          navigator.serviceWorker.getRegistrations().then(registrations => {
+            registrations.forEach(reg => reg.unregister());
+          });
+        }
+        // Força recarregamento com bypass de cache
+        window.location.href = window.location.href.split('#')[0] + '?v=' + CURRENT_VERSION;
+      }
+    </script>
+
     <!-- ✅ SEO Meta Tags -->
     <meta name="description" content="Fabricante de calçados femininos de luxo sustentáveis. Private label para as maiores marcas internacionais. Excelência no design, qualidade e sustentabilidade. Operações globais, produção responsável.">
     <meta name="keywords" content="calçados feminino, luxury footwear, private label, fabricação, sustentável, Brasil">
@@ -76,9 +96,9 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
         rel="stylesheet">
     <!-- ✅ Design Tokens (CSS Variables) -->
-    <link rel="stylesheet" href="tokens.css?v=20260826001">
+    <link rel="stylesheet" href="tokens.css?v=20260826-v2">
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=20260826001">
+    <link rel="stylesheet" href="style.css?v=20260826-v2">
     <!-- Social Responsibility Section Fix - Force Rebuild v2 -->
     <style>
         .social { background-color: #2a3330 !important; }
@@ -713,7 +733,7 @@
       }
     </style>
 
-    <script src="script.js?v=20260826001"></script>
+    <script src="script.js?v=20260826-v2"></script>
 </body>
 
-</html>// Rebuild trigger: 1787689192
+</html>// Rebuild trigger: 1787689300
