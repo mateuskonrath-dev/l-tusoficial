@@ -44,6 +44,7 @@
     "form-email-ph": "votre@email.com",
     "form-country": "Pays",
     "form-country-ph": "Sélectionnez votre pays",
+    "form-country-custom": "Quel est votre pays?",
     "country-br": "Brésil",
     "country-us": "États-Unis",
     "country-eu": "Europe",
