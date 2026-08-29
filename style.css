@@ -831,10 +831,10 @@ a:hover::after {
 }
 
 .card-text p {
-    color: #f5f5f5;
+    color: #2a3330;
     font-size: 1rem;
     line-height: 1.7;
-    opacity: 0.98;
+    opacity: 0.95;
 }
 
 /* Sustainability Section */
@@ -1071,7 +1071,7 @@ a:hover::after {
 
 .info-text p {
     font-size: 0.95rem;
-    color: #f5f5f5;
+    color: #2a3330;
 }
 
 .contact .section-title.dark-text h2 {
