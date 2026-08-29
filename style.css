@@ -580,13 +580,10 @@ section:nth-of-type(5) { animation-delay: 0.5s; }
 }
 
 .stat-number {
-    animation: bounce 2s ease-in-out infinite;
-    animation-delay: var(--delay, 0s);
+    /* Animation removed - numbers now static */
 }
 
-.stat-wrapper:nth-child(1) .stat-number { --delay: 0s; }
-.stat-wrapper:nth-child(2) .stat-number { --delay: 0.2s; }
-.stat-wrapper:nth-child(3) .stat-number { --delay: 0.4s; }
+/* Delay variables removed - no animation */
 
 /* ✅ Pulse for CTA */
 @keyframes pulse {
