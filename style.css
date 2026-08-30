@@ -839,16 +839,26 @@ a:hover::after {
     background-color: var(--color-stone);
 }
 
+.why-lotus .section-title h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-white);
+    letter-spacing: -0.5px;
+}
+
 .why-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
     margin-top: 3rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .why-item {
     text-align: center;
-    padding: 2rem;
+    padding: 2.5rem;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(212, 175, 55, 0.15);
     border-radius: 12px;
@@ -861,22 +871,18 @@ a:hover::after {
     transform: translateY(-4px);
 }
 
-.why-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    display: block;
-}
-
 .why-item h3 {
     color: var(--color-white);
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
 }
 
 .why-item p {
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #d4af37;
     color: #2a3330;
     margin: 0;
 }
