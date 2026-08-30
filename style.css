@@ -882,7 +882,7 @@ a:hover::after {
 .why-item p {
     font-size: 1.05rem;
     line-height: 1.7;
-    color: #d4af37;
+    color: var(--color-white);
     color: #2a3330;
     margin: 0;
 }
