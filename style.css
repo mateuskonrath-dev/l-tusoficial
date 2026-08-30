@@ -882,10 +882,9 @@ a:hover::after {
 .why-item p {
     font-size: 1.05rem;
     line-height: 1.7;
-    color: #ffffff;
+    color: #ffffff !important;
     font-weight: 500;
     opacity: 1;
-    color: #2a3330;
     margin: 0;
 }
 
