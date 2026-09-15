@@ -89,17 +89,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`./locales/${lang}.json`);
             if (!response.ok) throw new Error(`Could not load ${lang} translations`);
             translations = await response.json();
+            console.log(`✅ Translations loaded for ${lang}:`, Object.keys(translations).length, 'keys');
             return translations;
         } catch (error) {
-            if (window.location.hostname === 'localhost') {
-                console.error('Translation error:', error);
+            console.error(`❌ Translation error for ${lang}:`, error);
+            if (lang !== 'pt') {
+                console.warn(`Fallback to Portuguese...`);
+                return loadTranslations('pt');
             }
-            if (lang !== 'pt') return loadTranslations('pt');
             return {};
         }
     };
 
     const changeLanguage = async (lang) => {
+        console.log(`🔄 Changing language to: ${lang}`);
         try {
             await loadTranslations(lang);
 
@@ -152,10 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             localStorage.setItem('lotus-lang', lang);
             document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
+            console.log(`✅ Language changed to: ${lang}`);
         } catch (e) {
-            if (window.location.hostname === 'localhost') {
-                console.error('Change language error:', e);
-            }
+            console.error(`❌ Change language error:`, e);
         }
     };
 
