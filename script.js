@@ -374,8 +374,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 messageLength: formData.message ? formData.message.length : 0
             });
 
-            // Simular envio (em produção, POST para backend com dados sanitizados)
-            setTimeout(() => {
+            // Enviar para backend real
+            fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('✅ Email enviado com sucesso:', data);
                 showNotification(
                     translations['form-success'] || 'Mensagem enviada com sucesso!',
                     'success'
@@ -384,7 +398,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.disabled = false;
                 btn.innerHTML = originalText;
                 inputs.forEach(input => input.classList.remove('valid'));
-            }, 1500);
+            })
+            .catch(error => {
+                console.error('❌ Erro ao enviar email:', error);
+                showNotification(
+                    translations['form-error'] || 'Erro ao enviar mensagem. Tente novamente.',
+                    'error'
+                );
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            });
         });
     }
 
