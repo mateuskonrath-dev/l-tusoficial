@@ -82,8 +82,11 @@ ul {
 
 /* Buttons */
 .btn-primary {
-    display: inline-block;
-    padding: 1rem 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.75rem 2.5rem;
     font-family: var(--font-sans);
     font-weight: 500;
     letter-spacing: 2px;
@@ -95,6 +98,7 @@ ul {
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
     border: 1px solid transparent;
     transition: var(--transition-smooth);
+    cursor: pointer;
 }
 
 .btn-primary:hover {
@@ -111,8 +115,11 @@ ul {
 
 /* ✅ NOVO: Button Secondary para CTAs alternativas */
 .btn-secondary {
-    display: inline-block;
-    padding: 1rem 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.75rem 2.5rem;
     font-family: var(--font-sans);
     font-weight: 500;
     letter-spacing: 2px;
@@ -862,14 +869,32 @@ a:hover::after {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(212, 175, 55, 0.15);
     border-radius: 12px;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.why-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
 }
 
 .why-item:hover {
-    border-color: rgba(212, 175, 55, 0.3);
-    background: rgba(255, 255, 255, 0.06);
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15);
+    border-color: rgba(212, 175, 55, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.25);
+}
+
+.why-item:hover::before {
+    left: 100%;
 }
 
 .why-item h3 {
@@ -1028,13 +1053,15 @@ a:hover::after {
 .form-group input,
 .form-group select,
 .form-group textarea {
-    padding: 0.8rem 1rem;
+    padding: 0.75rem 1rem;
+    min-height: 44px;
     border: 1px solid #e0e6e3;
     border-radius: 8px;
     background-color: #f9fbf9;
     font-family: var(--font-sans);
     font-size: 0.95rem;
-    transition: var(--transition-smooth);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 100%;
 }
 
 .form-group input:focus,
@@ -1043,12 +1070,14 @@ a:hover::after {
     outline: none;
     border-color: var(--color-green-light);
     background-color: var(--color-white);
-    box-shadow: 0 0 0 4px rgba(31, 94, 66, 0.1);
+    box-shadow: 0 0 0 4px rgba(31, 94, 66, 0.2);
+    transform: translateY(-2px);
 }
 
 .btn-send {
     margin-top: 1rem;
-    padding: 1.1rem 2.5rem; /* ✅ Aumentado para 44px min-height */
+    min-height: 44px;
+    padding: 0.75rem 2.5rem;
     border: none;
     border-radius: 8px;
     background-color: #2e7e58;
@@ -1060,15 +1089,17 @@ a:hover::after {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    transition: var(--transition-smooth);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     font-size: 0.95rem;
     min-width: 200px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .btn-send:hover {
     background-color: #246345;
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(46, 126, 88, 0.3);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(46, 126, 88, 0.4);
 }
 
 .btn-send:active {
@@ -1200,9 +1231,9 @@ footer {
 /* ✅ Scroll Animations Refined */
 .reveal {
     opacity: 0;
-    transform: translateY(40px) scale(0.96);
-    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(50px) scale(0.95);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: opacity, transform;
 }
 
@@ -1210,6 +1241,12 @@ footer {
     opacity: 1;
     transform: translateY(0) scale(1);
 }
+
+/* ✅ Improved reveal delays for staggered animations */
+.reveal.delay-1 { --reveal-delay: 0.15s; }
+.reveal.delay-2 { --reveal-delay: 0.25s; }
+.reveal.delay-3 { --reveal-delay: 0.35s; }
+.reveal.delay-4 { --reveal-delay: 0.45s; }
 
 .delay-1 {
     transition-delay: 0.1s;
@@ -1550,6 +1587,48 @@ body {
 
     .footer-qr {
         order: 3;
+    }
+}
+
+/* ✅ Mobile Form Optimization */
+@media (max-width: 480px) {
+    .btn-primary,
+    .btn-secondary,
+    .btn-send {
+        width: 100%;
+        min-height: 48px;
+        padding: 0.9rem 1.5rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        min-height: 48px;
+        font-size: 16px;
+        padding: 0.9rem 1rem;
+    }
+
+    .cta-section .btn-group {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .cta-section .btn-group .btn-primary,
+    .cta-section .btn-group .btn-secondary {
+        width: 100%;
+    }
+
+    .lang-dropbtn {
+        padding: 0.6rem 1rem;
+        min-height: 44px;
+    }
+
+    /* Improve touch targets for nav links */
+    .nav-links li a {
+        padding: 0.6rem 0;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
     }
 }
 
