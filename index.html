@@ -435,27 +435,37 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
+                                <label for="continent" data-i18n="form-continent">Continent</label>
+                                <select id="continent" required aria-required="true" aria-describedby="continent-error">
+                                    <option value="" data-i18n="form-continent-ph" disabled selected>Select your continent</option>
+                                    <option value="ASIA" data-i18n="continent-asia">Asia</option>
+                                    <option value="EUROPE" data-i18n="continent-europe">Europe</option>
+                                    <option value="AMERICAS" data-i18n="continent-americas">Americas</option>
+                                    <option value="AFRICA" data-i18n="continent-africa">Africa</option>
+                                    <option value="OCEANIA" data-i18n="continent-oceania">Oceania</option>
+                                </select>
+                                <span id="continent-error" class="field-error" role="alert" aria-live="polite"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="country" data-i18n="form-country">Country</label>
+                                <input type="text" id="country" placeholder="Ex: Brazil, USA, Portugal..."
+                                    data-i18n-placeholder="form-country-ph" required aria-required="true" aria-describedby="country-error">
+                                <span id="country-error" class="field-error" role="alert" aria-live="polite"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
                                 <label for="email" data-i18n="form-email">Email</label>
                                 <input type="email" id="email" placeholder="your@email.com"
                                     data-i18n-placeholder="form-email-ph" required aria-required="true" aria-describedby="email-error">
                                 <span id="email-error" class="field-error" role="alert" aria-live="polite"></span>
                             </div>
                             <div class="form-group">
-                                <label for="country" data-i18n="form-country">Country</label>
-                                <select id="country" required aria-required="true" aria-describedby="country-error">
-                                    <option value="" data-i18n="form-country-ph" disabled selected>Select your country</option>
-                                    <option value="BR" data-i18n="country-br">Brasil</option>
-                                    <option value="US" data-i18n="country-us">United States</option>
-                                    <option value="EU" data-i18n="country-eu">Europa</option>
-                                    <option value="other" data-i18n="country-other">Other</option>
-                                </select>
-                                <span id="country-error" class="field-error" role="alert" aria-live="polite"></span>
+                                <label for="company" data-i18n="form-company">Company</label>
+                                <input type="text" id="company" placeholder="Your company name"
+                                    data-i18n-placeholder="form-company-ph" aria-describedby="company-error">
+                                <span id="company-error" class="field-error" role="alert" aria-live="polite"></span>
                             </div>
-                        </div>
-                        <div class="form-group" id="country-custom-group" style="display: none;">
-                            <label for="country-custom" data-i18n="form-country-custom">What is your country?</label>
-                            <input type="text" id="country-custom" placeholder="Ex: Portugal, Argentina, Canada..." aria-describedby="country-custom-error">
-                            <span id="country-custom-error" class="field-error" role="alert" aria-live="polite"></span>
                         </div>
                         <div class="form-group">
                             <label for="message" data-i18n="form-message">Message</label>
