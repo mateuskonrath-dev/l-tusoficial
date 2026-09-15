@@ -898,7 +898,7 @@ a:hover::after {
 }
 
 .why-item h3 {
-    color: var(--color-white);
+    color: var(--color-green-dark);
     font-size: 1.4rem;
     margin-bottom: 1.2rem;
     font-weight: 700;
@@ -908,10 +908,20 @@ a:hover::after {
 .why-item p {
     font-size: 1.05rem;
     line-height: 1.7;
-    color: #ffffff !important;
+    color: var(--color-green-dark) !important;
     font-weight: 500;
     opacity: 1;
     margin: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    .why-item h3 {
+        color: var(--color-white);
+    }
+
+    .why-item p {
+        color: #ffffff !important;
+    }
 }
 
 /* Sustainability Section */
