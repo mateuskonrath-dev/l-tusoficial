@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Close mobile menu when clicking a link
+        const navLinksController = new AbortController();
         navLinksItems.forEach(item => {
             item.addEventListener('click', () => {
                 if (navLinks.classList.contains('nav-active')) {
@@ -72,7 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     hamburger.classList.remove('toggle');
                     navLinksItems.forEach(link => link.style.animation = '');
                 }
-            });
+            }, { signal: navLinksController.signal });
+        });
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            navLinksController.abort();
         });
     }
 
@@ -193,6 +199,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const langDropdown = langDropBtn ? langDropBtn.closest('.lang-dropdown') : null;
 
     if (langDropBtn && langDropdownContent && langDropdown) {
+        // Use AbortController to prevent memory leaks
+        const langDropController = new AbortController();
+
         langDropBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             langDropdown.classList.toggle('open');
@@ -209,6 +218,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Update aria-expanded
                 langDropBtn.setAttribute('aria-expanded', 'false');
             }
+        }, { signal: langDropController.signal });
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            langDropController.abort();
         });
     }
 
@@ -470,19 +484,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial trigger
     window.dispatchEvent(new Event('scroll'));
-
-    // ✅ Force Social Responsibility Section Colors (CSS Fallback)
-    const cardHeadings = document.querySelectorAll('.card-text h3');
-    const cardParagraphs = document.querySelectorAll('.card-text p');
-
-    cardHeadings.forEach(el => {
-        el.style.color = '#ffffff';
-        el.style.fontWeight = '600';
-        el.style.letterSpacing = '0.5px';
-    });
-
-    cardParagraphs.forEach(el => {
-        el.style.color = '#f5f5f5';
-        el.style.opacity = '0.98';
-    });
 });
