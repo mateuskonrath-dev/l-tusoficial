@@ -401,12 +401,6 @@
                     <p data-i18n="why6-desc">Qualidade de exportação europeia com custos competitivos. Máximo valor agregado. ROI comprovado para marcas premium.</p>
                 </div>
             </div>
-
-            <!-- ✅ CTA na seção Why Lotus para conversão imediata -->
-            <div class="why-cta reveal" style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1);">
-                <p style="color: #2a3330; font-size: 1rem; margin-bottom: 1.5rem;">Pronto para conhecer nossa coleção e conversar com nossos especialistas?</p>
-                <a href="#contact" class="btn-primary" data-i18n="why-cta-btn">Fale com Especialista</a>
-            </div>
         </div>
     </section>
 
@@ -564,18 +558,12 @@
                 <p data-i18n="footer-desc">Onde o ecologicamente correto encontra a moda de alto padrão.</p>
             </div>
             <div class="footer-qr">
-                <div style="text-align: center;">
-                    <a href="https://www.instagram.com/lotus_shoes25" target="_blank" rel="noopener noreferrer" style="display: block; margin-bottom: 0.75rem;">
-                        <picture>
-                            <source srcset="assets/qr.webp" type="image/webp">
-                            <img src="assets/qr.png" alt="Instagram @lotus_shoes25" loading="lazy">
-                        </picture>
-                    </a>
-                    <!-- ✅ Fallback text link para QR code -->
-                    <a href="https://www.instagram.com/lotus_shoes25" target="_blank" rel="noopener noreferrer" style="color: var(--color-gold); text-decoration: none; font-size: 0.85rem; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; transition: opacity 0.2s;">
-                        @lotus_shoes25 ↗
-                    </a>
-                </div>
+                <a href="https://www.instagram.com/lotus_shoes25" target="_blank" rel="noopener noreferrer">
+                    <picture>
+                        <source srcset="assets/qr.webp" type="image/webp">
+                        <img src="assets/qr.png" alt="Instagram @lotus_shoes25" loading="lazy">
+                    </picture>
+                </a>
             </div>
             <div class="footer-contact">
                 <p><span class="gold-icon">📍</span> Sapiranga, Rio Grande do Sul - Brasil</p>
@@ -694,7 +682,7 @@
           const submitBtn = contactForm.querySelector('.btn-send');
           const originalText = submitBtn.querySelector('span').textContent;
           submitBtn.disabled = true;
-          submitBtn.classList.add('loading');
+          submitBtn.style.opacity = '0.6';
           submitBtn.querySelector('span').textContent = '⏳ Enviando...';
 
           try {
@@ -762,7 +750,7 @@
           } finally {
             // Restaurar botão
             submitBtn.disabled = false;
-            submitBtn.classList.remove('loading');
+            submitBtn.style.opacity = '1';
             submitBtn.querySelector('span').textContent = originalText;
           }
         });

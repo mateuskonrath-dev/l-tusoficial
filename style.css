@@ -84,8 +84,6 @@ ul {
 .btn-primary {
     display: inline-block;
     padding: 1rem 2.5rem;
-    min-height: 44px;
-    min-width: 44px;
     font-family: var(--font-sans);
     font-weight: 500;
     letter-spacing: 2px;
@@ -97,9 +95,6 @@ ul {
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
     border: 1px solid transparent;
     transition: var(--transition-smooth);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .btn-primary:hover {
@@ -116,12 +111,8 @@ ul {
 
 /* ✅ NOVO: Button Secondary para CTAs alternativas */
 .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-block;
     padding: 1rem 2.5rem;
-    min-height: 44px;
-    min-width: 44px;
     font-family: var(--font-sans);
     font-weight: 500;
     letter-spacing: 2px;
@@ -1054,32 +1045,9 @@ a:hover::after {
     box-shadow: 0 0 0 4px rgba(31, 94, 66, 0.1);
 }
 
-/* ✅ MELHORIA: Dropdown styling com visual feedback */
-.form-group select {
-    appearance: none;
-    background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6L11 1" stroke="%231f5e42" stroke-width="2" stroke-linecap="round"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 40px;
-    background-color: #f9fbf9;
-    cursor: pointer;
-}
-
-.form-group select:hover {
-    border-color: var(--color-green-dark);
-    box-shadow: 0 2px 8px rgba(31, 94, 66, 0.08);
-}
-
-.form-group select:valid {
-    background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6L11 1" stroke="%231f5e42" stroke-width="2" stroke-linecap="round"/></svg>');
-    background-position: right 12px center;
-}
-
 .btn-send {
     margin-top: 1rem;
-    padding: 1.1rem 2.5rem;
-    min-height: 44px;
-    min-width: 44px;
+    padding: 1.1rem 2.5rem; /* ✅ Aumentado para 44px min-height */
     border: none;
     border-radius: 8px;
     background-color: #2e7e58;
@@ -1093,6 +1061,7 @@ a:hover::after {
     gap: 10px;
     transition: var(--transition-smooth);
     font-size: 0.95rem;
+    min-width: 200px;
 }
 
 .btn-send:hover {
@@ -1103,60 +1072,6 @@ a:hover::after {
 
 .btn-send:active {
     transform: translateY(0) scale(0.98);
-}
-
-/* ✅ MELHORIA 7: Loading skeleton animation */
-@keyframes skeleton-loading {
-    0% {
-        background-color: #e8e8e8;
-        background-position: 0% center;
-    }
-    50% {
-        background-color: #f0f0f0;
-        background-position: 100% center;
-    }
-    100% {
-        background-color: #e8e8e8;
-        background-position: 0% center;
-    }
-}
-
-.btn-send.loading {
-    background: linear-gradient(90deg, #e8e8e8 25%, #f0f0f0 50%, #e8e8e8 75%);
-    background-size: 200% 100%;
-    animation: skeleton-loading 1.5s infinite;
-    color: transparent;
-    pointer-events: none;
-}
-
-/* ✅ MELHORIA 8: Micro-interações no hover para buttons */
-.why-item {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-    padding: 1.5rem;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.why-item:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-}
-
-.why-item h3 {
-    transition: color 0.2s ease;
-}
-
-.why-item:hover h3 {
-    color: var(--color-gold);
-}
-
-/* Micro-interações para links */
-a:not(.btn-primary):not(.btn-secondary):not(.btn-send) {
-    transition: opacity 0.2s ease, color 0.2s ease;
-}
-
-a:not(.btn-primary):not(.btn-secondary):not(.btn-send):hover {
-    opacity: 0.8;
 }
 
 /* ✅ NOVO: Validação visual de form */
