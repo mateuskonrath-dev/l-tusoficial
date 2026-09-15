@@ -233,7 +233,72 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.remove(), 4000);
     }
 
-    // --- CONTACT FORM HANDLER (✅ MELHORADO) ---
+    // --- SECURITY: Input Sanitization Function ---
+    // ✅ Removes potentially dangerous HTML/JS while preserving safe text
+    function sanitizeInput(value, fieldType = 'text') {
+        if (!value || typeof value !== 'string') return '';
+
+        // 1. Trim whitespace
+        let sanitized = value.trim();
+
+        // 2. Remove HTML tags completely
+        sanitized = sanitized.replace(/<[^>]*>/g, '');
+
+        // 3. Decode HTML entities to detect encoded attacks (e.g., &lt;script&gt;)
+        // Then re-encode them as text
+        const textarea = document.createElement('textarea');
+        textarea.innerHTML = sanitized;
+        sanitized = textarea.value;
+
+        // 4. Remove common attack patterns
+        const dangerousPatterns = [
+            /javascript:/gi,           // javascript: protocol
+            /on\w+\s*=/gi,             // event handlers (onclick=, onload=, etc)
+            /script/gi,                // script tags
+            /iframe/gi,                // iframe tags
+            /<embed/gi,                // embed tags
+            /<object/gi,               // object tags
+            /eval\(/gi,                // eval() function
+            /expression\s*\(/gi        // CSS expressions
+        ];
+
+        dangerousPatterns.forEach(pattern => {
+            sanitized = sanitized.replace(pattern, '');
+        });
+
+        // 5. Field-specific validation
+        if (fieldType === 'email') {
+            // Keep only alphanumeric, dots, hyphens, underscores, and @
+            sanitized = sanitized.replace(/[^a-zA-Z0-9._-@]/g, '');
+        } else if (fieldType === 'name') {
+            // Keep only letters, spaces, hyphens, and apostrophes (for names like "Mary-Jane" or "O'Connor")
+            sanitized = sanitized.replace(/[^a-zA-ZáéíóúàâêôçÁÉÍÓÚÀÂÊÔÇ\s\-']/g, '');
+        } else if (fieldType === 'select') {
+            // For select fields, only allow predefined options (validated separately)
+            sanitized = sanitized.replace(/[^a-zA-Z0-9_-]/g, '');
+        }
+
+        // 6. Limit length to prevent DoS attacks
+        const maxLengths = {
+            'name': 100,
+            'company': 150,
+            'email': 254,
+            'country': 100,
+            'message': 5000
+        };
+        const maxLength = maxLengths[fieldType] || 1000;
+        if (sanitized.length > maxLength) {
+            sanitized = sanitized.substring(0, maxLength);
+        }
+
+        return sanitized;
+    }
+
+    // --- FORM RATE LIMITING ---
+    let lastFormSubmitTime = 0;
+    const formSubmitCooldown = 2000; // 2 seconds between submissions
+
+    // --- CONTACT FORM HANDLER (✅ SEGURANÇA MELHORADA) ---
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         // ✅ Validação em tempo real
@@ -250,10 +315,40 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
+            // Rate limiting check
+            const now = Date.now();
+            if (now - lastFormSubmitTime < formSubmitCooldown) {
+                showNotification(
+                    translations['form-error'] || 'Por favor, aguarde antes de enviar novamente.',
+                    'error'
+                );
+                return;
+            }
+            lastFormSubmitTime = now;
+
             // Validar todos os campos
             let isValid = true;
+            const formData = {};
+
             inputs.forEach(input => {
-                if (!validateField(input)) isValid = false;
+                if (!validateField(input)) {
+                    isValid = false;
+                } else {
+                    // Sanitize input based on field type
+                    const fieldType = input.name || input.getAttribute('placeholder') || 'text';
+                    let sanitizedValue = sanitizeInput(input.value, fieldType);
+
+                    // Additional validation for select fields (whitelist)
+                    if (input.type === 'select-one') {
+                        const allowedOptions = Array.from(input.options).map(opt => opt.value);
+                        if (!allowedOptions.includes(sanitizedValue) && sanitizedValue !== '') {
+                            isValid = false;
+                            return;
+                        }
+                    }
+
+                    formData[input.name || input.id] = sanitizedValue;
+                }
             });
 
             if (!isValid) {
@@ -269,7 +364,17 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.disabled = true;
             btn.innerHTML = '<span data-i18n="form-sending">Enviando...</span>';
 
-            // Simular envio
+            // Log sanitized data for debugging (remove in production if privacy is concern)
+            console.log('📧 Formulário sanitizado pronto para envio:', {
+                name: formData.name ? formData.name.substring(0, 20) + '...' : '[vazio]',
+                email: formData.email ? formData.email.substring(0, 20) + '...' : '[vazio]',
+                company: formData.company ? formData.company.substring(0, 20) + '...' : '[vazio]',
+                continent: formData.continent,
+                country: formData.country ? formData.country.substring(0, 20) + '...' : '[vazio]',
+                messageLength: formData.message ? formData.message.length : 0
+            });
+
+            // Simular envio (em produção, POST para backend com dados sanitizados)
             setTimeout(() => {
                 showNotification(
                     translations['form-success'] || 'Mensagem enviada com sucesso!',
@@ -283,19 +388,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ✅ Função de validação
+    // ✅ Função de validação melhorada
     function validateField(field) {
         if (field.type === 'email') {
-            const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value);
+            // More robust email validation (RFC 5322 simplified)
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const isValid = emailRegex.test(field.value) && field.value.length <= 254;
             field.classList.toggle('valid', isValid && field.value);
             field.classList.toggle('invalid', !isValid && field.value);
             return isValid || !field.required;
         }
 
-        if (field.hasAttribute('required')) {
-            const isValid = field.value.trim() !== '';
+        if (field.type === 'select-one') {
+            // Validate select dropdowns
+            const isValid = field.value !== '' && field.value !== null;
             field.classList.toggle('valid', isValid);
+            field.classList.toggle('invalid', !isValid && field.hasAttribute('required'));
+            return isValid || !field.hasAttribute('required');
+        }
+
+        if (field.hasAttribute('required')) {
+            const isValid = field.value.trim() !== '' && field.value.trim().length >= 2;
+            field.classList.toggle('valid', isValid);
+            field.classList.toggle('invalid', !isValid);
             return isValid;
+        }
+
+        // Optional fields just need trimming
+        if (field.value.trim().length > 0) {
+            field.classList.add('valid');
+            field.classList.remove('invalid');
         }
         return true;
     }
