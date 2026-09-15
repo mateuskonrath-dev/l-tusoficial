@@ -269,13 +269,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // 5. Field-specific validation
         if (fieldType === 'email') {
             // Keep only alphanumeric, dots, hyphens, underscores, and @
-            sanitized = sanitized.replace(/[^a-zA-Z0-9._-@]/g, '');
+            sanitized = sanitized.replace(/[^a-zA-Z0-9._@\-]/g, '');
         } else if (fieldType === 'name') {
             // Keep only letters, spaces, hyphens, and apostrophes (for names like "Mary-Jane" or "O'Connor")
             sanitized = sanitized.replace(/[^a-zA-ZáéíóúàâêôçÁÉÍÓÚÀÂÊÔÇ\s\-']/g, '');
         } else if (fieldType === 'select') {
             // For select fields, only allow predefined options (validated separately)
-            sanitized = sanitized.replace(/[^a-zA-Z0-9_-]/g, '');
+            sanitized = sanitized.replace(/[^a-zA-Z0-9_\-]/g, '');
         }
 
         // 6. Limit length to prevent DoS attacks
