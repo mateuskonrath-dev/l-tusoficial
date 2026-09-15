@@ -1,26 +1,63 @@
 # Lótus Calçados - Robots.txt
-# Last Updated: 2026-03-27
+# Last Updated: 2026-09-15
+# Purpose: Guide search engine crawlers for optimal indexing
 
-# Allow all crawlers
+# Default rules for all crawlers
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /.env
-Disallow: /node_modules/
-Disallow: /*.json$
-Disallow: /sw.js
+Allow: /locales/
+Allow: /assets/
+Allow: /test-*.html
 
-# Specific crawlers
+# Disallow private/system files
+Disallow: /.env
+Disallow: /.git
+Disallow: /node_modules/
+Disallow: /*.env*
+Disallow: /config/
+Disallow: /.well-known/
+Disallow: /private/
+Disallow: /admin/
+Disallow: /api/contact
+
+# Service Worker - Allow crawling
+Allow: /sw.js
+
+# Design tokens and styles - Allow crawling
+Allow: /tokens.css
+Allow: /tokens.json
+Allow: /style.css
+Allow: /script.js
+
+# Translation files - Allow crawling (important for multilingual SEO)
+Allow: /locales/*.json
+
+# Google Search Console verification
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
+Crawl-delay: 0.5
+Request-rate: 10/1s
 
+User-agent: Googlebot-Image
+Allow: /
+Allow: /assets/
+
+# Bing
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 1
+Crawl-delay: 0.5
+Request-rate: 10/1s
 
-# Sitemap
-Sitemap: https://lotus-shoes-preview.vercel.app/sitemap.xml
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
 
-# Cache settings
-Cache-Control: public, max-age=3600
+# Yandex
+User-agent: YandexBot
+Allow: /
+
+# ✅ Sitemap location
+Sitemap: https://lotus-shoes-site-1.vercel.app/sitemap.xml
+
+# ✅ Canonical domain preference (helps consolidate search index)
+Host: https://lotus-shoes-site-1.vercel.app
