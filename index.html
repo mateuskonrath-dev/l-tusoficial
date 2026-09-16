@@ -15,21 +15,33 @@
 
     <!-- ✅ Cache Buster Script - Forces Fresh Load -->
     <script>
-      const CURRENT_VERSION = '20260830-why-lotus-fixed-white';
+      // Generate version based on current date (auto-increments daily)
+      const today = new Date().toISOString().split('T')[0].replace(/-/g, '');
+      const CURRENT_VERSION = 'lotus-' + today + '-v1';
       const VERSION_KEY = 'lotus-version';
       const STORED_VERSION = localStorage.getItem(VERSION_KEY);
 
-      // Se a versão mudou ou não existe, limpa cache e recarrega
+      // If version changed or doesn't exist, clear all caches and reload
       if (STORED_VERSION !== CURRENT_VERSION) {
+        console.log('🔄 New version detected. Clearing cache and reloading...');
         localStorage.setItem(VERSION_KEY, CURRENT_VERSION);
-        // Limpa cache do navegador
+
+        // Clear all caches
+        if ('caches' in window) {
+          caches.keys().then(names => {
+            names.forEach(name => caches.delete(name));
+          });
+        }
+
+        // Unregister all Service Workers
         if (navigator.serviceWorker) {
           navigator.serviceWorker.getRegistrations().then(registrations => {
             registrations.forEach(reg => reg.unregister());
           });
         }
-        // Força recarregamento com bypass de cache
-        window.location.href = window.location.href.split('#')[0] + '?v=' + CURRENT_VERSION;
+
+        // Force hard refresh (bypass browser cache)
+        window.location.href = window.location.href.split('#')[0].split('?')[0] + '?v=' + CURRENT_VERSION + '&t=' + Date.now();
       }
     </script>
 

@@ -1,9 +1,12 @@
 /**
  * Service Worker for Lótus Calçados PWA
  * Enables offline functionality, caching, and fast loading
+ * Auto-updates cache on every deploy
  */
 
-const CACHE_NAME = 'lotus-v1.0.0';
+// Generate cache name based on current date (forces refresh daily)
+const today = new Date().toISOString().split('T')[0].replace(/-/g, '');
+const CACHE_NAME = 'lotus-cache-' + today;
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
@@ -14,8 +17,11 @@ const URLS_TO_CACHE = [
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap'
 ];
 
+console.log('Service Worker: Using cache:', CACHE_NAME);
+
 // Install event - cache resources
 self.addEventListener('install', event => {
+  console.log('Service Worker: Installing...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
@@ -25,15 +31,18 @@ self.addEventListener('install', event => {
         });
       })
   );
+  // Force activation of new SW immediately
   self.skipWaiting();
 });
 
-// Activate event - clean old caches
+// Activate event - clean old caches aggressively
 self.addEventListener('activate', event => {
+  console.log('Service Worker: Activating...');
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
+          // Delete ALL caches except current one
           if (cacheName !== CACHE_NAME) {
             console.log('Service Worker: Deleting old cache:', cacheName);
             return caches.delete(cacheName);
@@ -42,7 +51,9 @@ self.addEventListener('activate', event => {
       );
     })
   );
+  // Claim all clients immediately
   self.clients.claim();
+  console.log('Service Worker: Activated with cache:', CACHE_NAME);
 });
 
 // Fetch event - serve from cache, fall back to network
